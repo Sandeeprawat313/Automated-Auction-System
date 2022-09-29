@@ -1,3 +1,5 @@
+// only for connection checking
+
 package utility;
 
 import java.sql.Connection;

@@ -2,7 +2,9 @@ package usecaseBuyer;
 
 import java.util.Scanner;
 
-import dao.buyerimpl;
+import bean.Buyer;
+import dao.buyerdao;
+import dao.buyerdaoimpl;
 
 public class resgisterBuyer {
 
@@ -17,9 +19,19 @@ public class resgisterBuyer {
 		int password = sc.nextInt();
 		
 		// use buyerimpl class to send the data received above to database for registration
-		buyerimpl bi = new buyerimpl();// making obj to use the method
-		String result = bi.registerBuyer(name, email, password);
+		//buyerdaoimpl bi = new buyerdaoimpl();// making obj to use the method
+		buyerdao bi = new buyerdaoimpl();
+		//String result = bi.registerBuyer(name, email, password);
+		//System.out.println(result);
+		
+		
+		Buyer b1 = new Buyer();
+		b1.setName(name);
+		b1.setEmail(email);
+		b1.setPassword(password);
+		String result = bi.registerBuyer2(b1);
 		System.out.println(result);
+		
 
 	}
 
