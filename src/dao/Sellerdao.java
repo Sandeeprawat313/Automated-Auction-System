@@ -9,5 +9,5 @@ public interface Sellerdao {
 	
 	public String listItems(Itemlist i1);
 	
-	public String updatelistItems(Itemlist i1,int serialNo);
+	public String updatelistItems(Itemlist i1,String item_name);
 }
