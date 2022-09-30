@@ -5,6 +5,11 @@ public class Seller {
 	private String email;
 	private int password;
 
+	@Override
+	public String toString() {
+		return "Seller [name=" + name + ", email=" + email + ", password=" + password + "]";
+	}
+
 	public String getName() {
 		return name;
 	}
