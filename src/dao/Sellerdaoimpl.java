@@ -63,12 +63,13 @@ public class Sellerdaoimpl implements Sellerdao {
 	}
 
 	@Override
-	public String updatelistItems(Itemlist i1,String item_name) {
+	public String updatelistItems(Itemlist i1, String item_name) {
 		String message = "NOT UPDATED..";
 //		logic
 		try (Connection conn = DButil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("update items Set item_name = ? ,price = ?, qty = ?, total_price = ?  Where item_name =?");
+			PreparedStatement ps = conn.prepareStatement(
+					"update items Set item_name = ? ,price = ?, qty = ?, total_price = ?  Where item_name =?");
 			ps.setString(1, i1.getItem_name());
 			ps.setInt(2, i1.getPrice());
 			ps.setInt(3, i1.getQty());
@@ -87,6 +88,31 @@ public class Sellerdaoimpl implements Sellerdao {
 
 		return message;
 
+	}
+
+	@Override
+	public String addItem(Itemlist i1) {
+		String message = "NOT UPDATED..";
+		// logic
+		try (Connection conn = DButil.provideConnection()) {
+
+			PreparedStatement ps = conn
+					.prepareStatement("insert into items(item_name,price,qty,total_price) values(?,?,?,?)");
+			ps.setString(1, i1.getItem_name());
+			ps.setInt(2, i1.getPrice());
+			ps.setInt(3, i1.getQty());
+			ps.setInt(4, i1.getTotal_price());
+
+			int x = ps.executeUpdate();
+
+			if (x > 0)
+				message = "item inserted successfully";
+
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+
+		return message;
 	}
 
 }
