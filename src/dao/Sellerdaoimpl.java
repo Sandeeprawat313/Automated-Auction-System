@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.mysql.cj.xdevapi.PreparableStatement;
+
 import bean.Itemlist;
 import bean.Seller;
 import utility.DButil;
@@ -111,6 +113,30 @@ public class Sellerdaoimpl implements Sellerdao {
 		} catch (SQLException e) {
 			e.getMessage();
 		}
+
+		return message;
+	}
+
+	@Override
+	public String removeItem(String item_name) {
+
+		String message = "instruction failed";
+
+		try (Connection conn = DButil.provideConnection()) {
+
+			PreparedStatement ps = conn.prepareStatement("delete from items where item_name = ?");
+			ps.setString(1, item_name);
+			
+			int x = ps.executeUpdate();
+			
+			if(x>0)
+				message = "Item removed successfully";
+					
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+
+		//
 
 		return message;
 	}

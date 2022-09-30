@@ -12,4 +12,6 @@ public interface Sellerdao {
 	public String updatelistItems(Itemlist i1,String item_name);
 	
 	public String addItem(Itemlist i1);
+	
+	public String removeItem(String item_name);
 }
