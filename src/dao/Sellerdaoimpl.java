@@ -38,7 +38,7 @@ public class Sellerdaoimpl implements Sellerdao {
 
 	@Override
 	public String listItems(Itemlist i1) {
-		String message = "NOT INSERTED..";
+		String message = "Item not found..";
 //		logic
 		try (Connection conn = DButil.provideConnection()) {
 
@@ -52,7 +52,7 @@ public class Sellerdaoimpl implements Sellerdao {
 			int x = ps.executeUpdate();
 
 			if (x > 0)
-				message = "Item successfully listed";
+				message = "Item successfully updates";
 
 		} catch (SQLException e) {
 			e.getMessage();
@@ -63,17 +63,17 @@ public class Sellerdaoimpl implements Sellerdao {
 	}
 
 	@Override
-	public String updatelistItems(Itemlist i1,int serialNo) {
+	public String updatelistItems(Itemlist i1,String item_name) {
 		String message = "NOT UPDATED..";
 //		logic
 		try (Connection conn = DButil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("update items Set item_name = ?,price = ?, qty = 5, total_price = ?  Where serialNo = ?");
+			PreparedStatement ps = conn.prepareStatement("update items Set item_name = ? ,price = ?, qty = ?, total_price = ?  Where item_name =?");
 			ps.setString(1, i1.getItem_name());
 			ps.setInt(2, i1.getPrice());
 			ps.setInt(3, i1.getQty());
 			ps.setInt(4, i1.getTotal_price());
-			ps.setInt(5, serialNo);
+			ps.setString(5, item_name);
 
 			int x = ps.executeUpdate();// Check this
 
