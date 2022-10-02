@@ -19,9 +19,8 @@ public class Sellerdaoimpl implements Sellerdao {
 
 		try (Connection conn = DButil.provideConnection()) {
 			// prepared statement
-			PreparedStatement ps = conn.prepareStatement("insert into seller(name,email,password) values(?,?,?)");
-
-			ps.setString(1, s1.getName());
+			PreparedStatement ps = conn.prepareStatement("insert into seller(seller_name,email,password) values(?,?,?)");
+			ps.setString(1, s1.getSeller_name());
 			ps.setString(2, s1.getEmail());
 			ps.setInt(3, s1.getPassword());
 
@@ -44,12 +43,14 @@ public class Sellerdaoimpl implements Sellerdao {
 //		logic
 		try (Connection conn = DButil.provideConnection()) {
 
-			PreparedStatement ps = conn
-					.prepareStatement("insert into items(item_name,price,qty,total_price) values(?,?,?,?);");
-			ps.setString(1, i1.getItem_name());
-			ps.setInt(2, i1.getPrice());
-			ps.setInt(3, i1.getQty());
-			ps.setInt(4, i1.getTotal_price());
+			PreparedStatement ps = conn.prepareStatement(
+					"insert into items(seller_id,item_name,category,price,qty,total_price) values(?,?,?,?,?,?);");
+			ps.setInt(1, i1.getSeller_id());
+			ps.setString(2, i1.getItem_name());
+			ps.setString(3, i1.getCategory());
+			ps.setInt(4, i1.getPrice());
+			ps.setInt(5, i1.getQty());
+			ps.setInt(6, i1.getTotal_price());
 
 			int x = ps.executeUpdate();
 
@@ -65,18 +66,20 @@ public class Sellerdaoimpl implements Sellerdao {
 	}
 
 	@Override
-	public String updatelistItems(Itemlist i1, String item_name) {
+	public String updatelistItems(Itemlist i1, String item_name, int seller_id) {
 		String message = "NOT UPDATED..";
 //		logic
 		try (Connection conn = DButil.provideConnection()) {
 
 			PreparedStatement ps = conn.prepareStatement(
-					"update items Set item_name = ? ,price = ?, qty = ?, total_price = ?  Where item_name =?");
+					"update items Set item_name = ? ,category = ? , price = ?, qty = ?, total_price = ?  Where item_name = ? AND seller_id=?");
 			ps.setString(1, i1.getItem_name());
-			ps.setInt(2, i1.getPrice());
-			ps.setInt(3, i1.getQty());
-			ps.setInt(4, i1.getTotal_price());
-			ps.setString(5, item_name);
+			ps.setString(2, i1.getCategory());
+			ps.setInt(3, i1.getPrice());
+			ps.setInt(4, i1.getQty());
+			ps.setInt(5, i1.getTotal_price());
+			ps.setString(6, item_name);
+			ps.setInt(7, seller_id);
 
 			int x = ps.executeUpdate();// Check this
 
@@ -118,14 +121,15 @@ public class Sellerdaoimpl implements Sellerdao {
 	}
 
 	@Override
-	public String removeItem(String item_name) {
+	public String removeItem(String item_name, int seller_id) {
 
 		String message = "instruction failed";
 
 		try (Connection conn = DButil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("delete from items where item_name = ?");
+			PreparedStatement ps = conn.prepareStatement("delete from items where item_name = ? AND seller_id = ?");
 			ps.setString(1, item_name);
+			ps.setInt(2, seller_id);
 			
 			int x = ps.executeUpdate();
 			

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import bean.Seller;
+import bean.SellerListbean;
 import dao.Admindaoimpl;
 
 public class sellerList {
@@ -16,10 +17,10 @@ public class sellerList {
 
 		if (list.size() != 0) {
 
-			Iterator<Seller> itr = list.iterator();// creation of iterator
+			Iterator<SellerListbean> itr = list.iterator();// creation of iterator
 
 			while (itr.hasNext()) {
-				Seller b1 = itr.next();
+				SellerListbean b1 = itr.next();
 				System.out.println(b1);
 			}
 

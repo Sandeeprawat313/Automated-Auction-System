@@ -24,7 +24,7 @@ public class registerSeller {
 		
 		
 		Seller s1 = new Seller();
-		s1.setSeller_name(name);
+		s1.setName(name);
 		s1.setEmail(email);
 		s1.setPassword(password);
 		String result = si.registerSeller(s1);

@@ -11,6 +11,7 @@ import com.mysql.cj.xdevapi.Result;
 
 import bean.Buyer;
 import bean.Seller;
+import bean.SellerListbean;
 import utility.DButil;
 
 public class Admindaoimpl implements Admindao {
@@ -45,21 +46,21 @@ public class Admindaoimpl implements Admindao {
 
 	@Override
 	public List sellerList() {
-		List<Seller> list = new ArrayList<>();
+		List<SellerListbean> list = new ArrayList<>();
 
 		try (Connection conn = DButil.provideConnection()) {
-			PreparedStatement ps = conn.prepareStatement("select * from seller;");
+			PreparedStatement ps = conn.prepareStatement("select * from seller");
 
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				// int serialNo = rs.getInt("serialNo");
-				String name = rs.getString("name");
+				//int seller_id = rs.getInt("seller_id");
+				String seller_name = rs.getString("seller_name");
 				String email = rs.getString("email");
 				int password = rs.getInt("password");
 
 				// uper se value a jayi use object banao and object me store karo
-				list.add(new Seller(name, email, password));
+				list.add(new SellerListbean(seller_name, email, password));
 
 			}
 

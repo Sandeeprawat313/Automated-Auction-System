@@ -2,13 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import bean.Buyer;
-import bean.Itemlist;
 import utility.DButil;
 
 public class buyerdaoimpl implements buyerdao {
@@ -62,38 +58,6 @@ public class buyerdaoimpl implements buyerdao {
 		}
 
 		return message;
-
-	}
-
-	@Override
-	public List getitemsByCategory(String category) {
-		List<Itemlist> list = new ArrayList<>();
-
-		try (Connection conn = DButil.provideConnection()) {
-			PreparedStatement ps = conn.prepareStatement("select * from items where category = ?");
-
-			ps.setString(1, category);
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-				int serialNo = rs.getInt("serialNo");
-				int seller_id = rs.getInt("seller_id");
-				String item_name = rs.getString("item_name");
-				String cate = rs.getString("category");
-				int price = rs.getInt("price");
-				int qty = rs.getInt("qty");
-				int total_price = rs.getInt("total_price");
-
-				// uper se value a jayi use object banao and object me store karo
-				list.add(new Itemlist(serialNo, seller_id, item_name, cate, price, qty, total_price));
-
-			}
-
-		} catch (SQLException e) {
-			e.getMessage();
-		}
-
-		return list;
 
 	}
 

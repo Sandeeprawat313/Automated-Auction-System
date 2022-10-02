@@ -6,26 +6,25 @@ import bean.Itemlist;
 import dao.Sellerdao;
 import dao.Sellerdaoimpl;
 
-public class AddItem {
+public class ListProducts {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter the name of item");
-		String item_name = sc.next();
-		
+		System.out.println("Enter the name of Item");
+		String name = sc.next();
 		System.out.println("Enter the price of item");
 		int price = sc.nextInt();
-		
 		System.out.println("Enter the quantity");
 		int qty = sc.nextInt();
 		
-		Itemlist i1 = new Itemlist();
-		Sellerdao s1 = new Sellerdaoimpl();
-		String message = s1.addItem(i1);
+		//make the objec and pass the data
+		Itemlist l1 = new Itemlist(name, price, qty, price*qty);
 		
-		// print message
-		System.out.println(message);
-
+		
+		Sellerdao s1 = new Sellerdaoimpl();
+		String result = s1.listItems(l1);// pass the object with data i.e set item
+		System.out.println(result);
+		
 	}
 
 }

@@ -1,21 +1,25 @@
 package bean;
 
 public class Seller {
-	private String name;
+	private int seller_id;
+	private String seller_name;
 	private String email;
 	private int password;
 
-	@Override
-	public String toString() {
-		return "Seller [name=" + name + ", email=" + email + ", password=" + password + "]";
+	public int getSeller_id() {
+		return seller_id;
 	}
 
-	public String getName() {
-		return name;
+	public void setSeller_id(int seller_id) {
+		this.seller_id = seller_id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getSeller_name() {
+		return seller_name;
+	}
+
+	public void setSeller_name(String seller_name) {
+		this.seller_name = seller_name;
 	}
 
 	public String getEmail() {
@@ -34,9 +38,16 @@ public class Seller {
 		this.password = password;
 	}
 
-	public Seller(String name, String email, int password) {
+	@Override
+	public String toString() {
+		return "Seller [seller_id=" + seller_id + ", seller_name=" + seller_name + ", email=" + email + ", password="
+				+ password + "]";
+	}
+
+	public Seller(int seller_id, String seller_name, String email, int password) {
 		super();
-		this.name = name;
+		this.seller_id = seller_id;
+		this.seller_name = seller_name;
 		this.email = email;
 		this.password = password;
 	}
@@ -44,11 +55,6 @@ public class Seller {
 	public Seller() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
